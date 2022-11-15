@@ -84,8 +84,8 @@ async function getRecipes() {
   //            If there are recipes, return them.
   /**************************/
   
-   if(localStorage.getItem('recipes') != null){ //A1
-    return JSON.parse(localStorage.getItem('recipes')); //A1
+   if(localStorage.getItem('recipes') != null){ 
+    return JSON.parse(localStorage.getItem('recipes'));
   } //A1
   // The rest of this method will be concerned with requesting the recipes
   // from the network
