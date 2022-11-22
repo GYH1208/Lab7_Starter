@@ -49,18 +49,20 @@ function initializeServiceWorker() {
   // Steps B3-B6 will be *inside* the event listener's function created in B2
   // B3. TODO - Register './sw.js' as a service worker (The MDN article
   //            "Using Service Workers" will help you here)
+  // B4. TODO - Once the service worker has been successfully registered, console
+  //            log that it was successful.
+      
+  
   window.addEventListener('load',async function(){
         try{
           if( (await this.navigator.serviceWorker.register("./sw.js"))){
                console.log("Successfully  registered");
           }
- // B4. TODO - Once the service worker has been successfully registered, console
-  //            log that it was successful.
-      
+ 
         }
   // B5. TODO - In the event that the service worker registration fails, console
   //            log that it has failed.
-        catch(err){
+        catch(error){
             console.log("Registration failed");
         }
   }); 
@@ -86,7 +88,7 @@ async function getRecipes() {
   
    if(localStorage.getItem('recipes') != null){ 
     return JSON.parse(localStorage.getItem('recipes'));
-  } //A1
+  } 
   // The rest of this method will be concerned with requesting the recipes
   // from the network
   // A2. TODO - Create an empty array to hold the recipes that you will fetch
@@ -118,14 +120,13 @@ async function getRecipes() {
            const response = await Fetch.json();
 // A8. TODO - Add the new recipe to the recipes array
             Recipes.push(response);
-
              if(Recipes.length == RECIPE_URLS.length){  
   // A9. TODO - Check to see if you have finished retrieving all of the recipes,
   //            if you have, then save the recipes to storage using the function
   //            we have provided. Then, pass the recipes array to the Promise's
   //            resolve() method.
-                  saveRecipesToStorage(Recipes);
-                  resolve(Recipes);
+                  await saveRecipesToStorage(Recipes);
+                  await resolve(Recipes);
              }
         }
   // A10. TODO - Log any errors from catch using console.error
